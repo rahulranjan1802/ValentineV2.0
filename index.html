@@ -129,24 +129,24 @@
     }
 
     /* 💍 Surprise Screen */
-    #surpriseScreen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(to bottom right, #ff69b4, #ff1493);
-      color: white;
-      font-size: 2.5rem;
-      font-weight: bold;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 999;
-    }
+   #surpriseScreen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom right, #ff69b4, #ff1493);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+}
 
-    #surpriseScreen p {
-      font-size: 1.5rem;
-      margin-top: 15px;
-    }
+#surpriseScreen p {
+  font-size: 1.5rem;
+  margin-top: 15px;
+}
   </style>
 </head>
 
@@ -183,10 +183,10 @@
 
   <!-- Surprise Screen -->
   <div id="surpriseScreen">
-    💍 Date Confirmed! 💘
-    <p>See you on Valentine’s Night 😍🌹</p>
-  </div>
-
+  💘 Yay! That made me smile 😊
+  <p>🌸 Happy Valentine’s Day!</p>
+ </div>
+  
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -258,6 +258,9 @@
       // Surprise after 3change to 10 sec
       setTimeout(() => {
         surpriseScreen.style.display = "flex";
+      setTimeout(() => {
+        surpriseScreen.style.opacity = "1";
+        }, 200);
       }, 10000);
     });
 
