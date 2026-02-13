@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Sans MS", cursive;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #ffb6c1, #ff69b4);
+    }
+
+    h1 {
+      margin-top: 80px;
+      font-size: 2.3rem;
+      color: #d6004f;
+      padding: 0 15px;
+    }
+
+    /* 📱 Mobile Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      button { font-size: 18px; padding: 12px 25px; }
+      #message { font-size: 1.6rem; }
+      #roseBox img { width: 250px; }
+    }
+
+    /* ✅ Buttons in One Line */
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 35px;
+      font-size: 20px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    /* 💖 YES Button Pulse */
+    #yesBtn {
+      background: #ff2d75;
+      color: white;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    /* NO Button Normal Initially */
+    #noBtn {
+      background: white;
+      color: #ff2d75;
+    }
+
+    /* Love Message */
+    #message {
+      font-size: 2.2rem;
+      color: #d6004f;
+      margin-top: 50px;
+      display: none;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    /* Roses GIF */
+    #roseBox {
+      display: none;
+      margin-top: 25px;
+    }
+
+    #roseBox img {
+      width: 320px;
+      border-radius: 25px;
+      border: 6px solid white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    /* Music Player */
+    #musicBox {
+      display: none;
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.25);
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-800px); opacity: 0; }
+    }
+
+    /* 🎉 Confetti */
+    .confetti {
+      position: absolute;
+      font-size: 22px;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(700px); opacity: 0; }
+    }
+
+    /* 💍 Surprise Screen */
+    #surpriseScreen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom right, #ff69b4, #ff1493);
+      color: white;
+      font-size: 2.5rem;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    #surpriseScreen p {
+      font-size: 1.5rem;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Question -->
+  <h1 id="questionText">XYZ ❤️ Will you be my Valentine?</h1>
+
+  <!-- Buttons Row -->
+  <div class="buttons" id="btnRow">
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 😝</button>
+  </div>
+
+  <!-- Love Message -->
+  <div id="message">
+    YaYYY 💘!! <br>
+    Thank you for being my Valentine 😍 <br>
+    I Love You ❤️
+  </div>
+
+  <!-- Roses Animation -->
+  <div id="roseBox">
+    <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif">
+  </div>
+
+  <!-- Music -->
+  <div id="musicBox">
+    🎶 Romantic Music:
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Surprise Screen -->
+  <div id="surpriseScreen">
+    💍 Date Confirmed! 💘
+    <p>See you on Valentine’s Night 😍🌹</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    const questionText = document.getElementById("questionText");
+    const btnRow = document.getElementById("btnRow");
+
+    const message = document.getElementById("message");
+    const roseBox = document.getElementById("roseBox");
+
+    const musicBox = document.getElementById("musicBox");
+    const bgMusic = document.getElementById("bgMusic");
+
+    const surpriseScreen = document.getElementById("surpriseScreen");
+
+    /* 😝 NO Button Runs Away */
+    let escaped = false;
+
+    function moveButton() {
+      if (!escaped) {
+        noBtn.style.position = "absolute";
+        escaped = true;
+      }
+
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 100);
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("click", moveButton);
+
+    /* 🎉 Confetti Generator */
+    function launchConfetti() {
+      for (let i = 0; i < 25; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.innerHTML = "🎉";
+
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = "0px";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    /* YES Click */
+    yesBtn.addEventListener("click", () => {
+
+      // Hide question + buttons
+      questionText.style.display = "none";
+      btnRow.style.display = "none";
+
+      // Show message + roses
+      message.style.display = "block";
+      roseBox.style.display = "block";
+
+      // Start music
+      musicBox.style.display = "block";
+      bgMusic.play();
+
+      // Confetti blast
+      launchConfetti();
+
+      // Surprise after 3 sec
+      setTimeout(() => {
+        surpriseScreen.style.display = "flex";
+      }, 3000);
+    });
+
+    /* Floating Hearts */
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight + "px";
+      heart.style.fontSize = Math.random() * 25 + 15 + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+
+</body>
+</html>
