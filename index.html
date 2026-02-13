@@ -1,15 +1,20 @@
-<!DOCTYPE html> 
+///7:40
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Be My Valentine 💘</title>
 
+  <!-- ✨ Premium Romantic Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: "Comic Sans MS", cursive;
+      font-family: "Poppins", sans-serif;
       text-align: center;
       height: 100vh;
       overflow: hidden;
@@ -18,9 +23,10 @@
 
     h1 {
       margin-top: 80px;
-      font-size: 2.3rem;
+      font-size: 2.4rem;
       color: #d6004f;
       padding: 0 15px;
+      font-family: "Dancing Script", cursive;
     }
 
     /* 📱 Mobile Responsive */
@@ -31,12 +37,13 @@
       #roseBox img { width: 250px; }
     }
 
-    /* ✅ Buttons in One Line */
+    /* Buttons Row */
     .buttons {
       margin-top: 40px;
       display: flex;
       justify-content: center;
       gap: 20px;
+      display: none;
     }
 
     button {
@@ -48,7 +55,7 @@
       margin: 10px;
     }
 
-    /* 💖 YES Button Pulse */
+    /* 💖 YES Pulse */
     #yesBtn {
       background: #ff2d75;
       color: white;
@@ -61,13 +68,13 @@
       100% { transform: scale(1); }
     }
 
-    /* NO Button Normal Initially */
+    /* NO Button */
     #noBtn {
       background: white;
       color: #ff2d75;
     }
 
-    /* Love Message */
+    /* Love Message Fade */
     #message {
       font-size: 2.2rem;
       color: #d6004f;
@@ -75,12 +82,19 @@
       display: none;
       font-weight: bold;
       line-height: 1.5;
+      font-family: "Dancing Script", cursive;
+
+      opacity: 0;
+      transition: opacity 2s ease;
     }
 
-    /* Roses GIF */
+    /* Roses Fade */
     #roseBox {
       display: none;
       margin-top: 25px;
+
+      opacity: 0;
+      transition: opacity 2s ease;
     }
 
     #roseBox img {
@@ -91,7 +105,7 @@
     }
 
     /* Music Player */
-    /*#musicBox {
+    #musicBox {
       display: none;
       position: fixed;
       bottom: 15px;
@@ -101,7 +115,7 @@
       padding: 10px 20px;
       border-radius: 20px;
       box-shadow: 0 0 12px rgba(0,0,0,0.25);
-    }*/
+    }
 
     /* Floating Hearts */
     .heart {
@@ -128,65 +142,89 @@
       100% { transform: translateY(700px); opacity: 0; }
     }
 
-    /* 💍 Surprise Screen */
-   #surpriseScreen {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom right, #ff69b4, #ff1493);
-  color: white;
-  font-size: 2.5rem;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 999;
-}
+    /* 💍 Surprise Screen Fade */
+    #surpriseScreen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom right, #ff69b4, #ff1493);
+      color: white;
+      font-size: 2.5rem;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
 
-#surpriseScreen p {
-  font-size: 1.5rem;
-  margin-top: 15px;
-}
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      font-family: "Dancing Script", cursive;
+    }
+
+    #surpriseScreen p {
+      font-size: 1.5rem;
+      margin-top: 15px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Name Screen */
+    #nameScreen input {
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      text-align: center;
+      outline: none;
+    }
+
+    #startBtn {
+      background: #ff2d75;
+      color: white;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Question -->
-  <h1 id="questionText">XYZ ❤️ Will you be my Valentine?</h1>
+  <!-- 💖 Name Input -->
+  <div id="nameScreen">
+    <h1>Hey 💖 What’s your name?</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name...">
+    <br><br>
+    <button id="startBtn">Continue 💘</button>
+  </div>
 
-  <!-- Buttons Row -->
+  <!-- Question -->
+  <h1 id="questionText" style="display:none;"></h1>
+
+  <!-- Buttons -->
   <div class="buttons" id="btnRow">
     <button id="yesBtn">Yes 💖</button>
     <button id="noBtn">No 😝</button>
   </div>
 
-  <!-- Love Message -->
-  <div id="message">
-    YaYYY 💘!! <br>
-    Thank you for being my Valentine 😍💖 <br>
-    
-  </div>
+  <!-- Message -->
+  <div id="message"></div>
 
-  <!-- Roses Animation -->
+  <!-- Roses -->
   <div id="roseBox">
     <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif">
   </div>
 
   <!-- Music -->
-   <div id="musicBox">
-   <!-- 🎶 Romantic Music:  -->
+  <div id="musicBox">
+    🎶 Romantic Music:
     <audio id="bgMusic" loop>
       <source src="music.mp3" type="audio/mpeg">
     </audio>
-  </div> 
+  </div>
 
   <!-- Surprise Screen -->
   <div id="surpriseScreen">
-  💘 Yay! That made me smile 😊
-  <p>🌸 Happy Valentine’s Day!</p>
- </div>
-  
+    💘 Yay! That made me smile 😊
+    <p>🌸 Happy Valentine’s Day!</p>
+  </div>
+
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
@@ -202,80 +240,120 @@
 
     const surpriseScreen = document.getElementById("surpriseScreen");
 
-    /* 😝 NO Button Runs Away */
-    let escaped = false;
+    /* Name Logic */
+    const nameScreen = document.getElementById("nameScreen");
+    const nameInput = document.getElementById("nameInput");
+    const startBtn = document.getElementById("startBtn");
 
+    let girlName = "";
+
+    startBtn.addEventListener("click", () => {
+      girlName = nameInput.value.trim();
+      if (girlName === "") {
+        alert("Please enter your name 💖");
+        return;
+      }
+
+      nameScreen.style.display = "none";
+      questionText.style.display = "block";
+      btnRow.style.display = "flex";
+
+      questionText.innerHTML = `${girlName} ❤️ Will you be my Valentine?`;
+    });
+
+    /* 😝 No Button Escape */
+    let escaped = false;
     function moveButton() {
       if (!escaped) {
         noBtn.style.position = "absolute";
         escaped = true;
       }
 
-      const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 100);
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      noBtn.style.left = Math.random() * (window.innerWidth - 150) + "px";
+      noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
     }
 
     noBtn.addEventListener("mouseover", moveButton);
     noBtn.addEventListener("click", moveButton);
 
-    /* 🎉 Confetti Generator */
+    /* 🎉 Confetti */
     function launchConfetti() {
       for (let i = 0; i < 25; i++) {
         const confetti = document.createElement("div");
         confetti.classList.add("confetti");
         confetti.innerHTML = "🎉";
-
         confetti.style.left = Math.random() * window.innerWidth + "px";
         confetti.style.top = "0px";
-
         document.body.appendChild(confetti);
-
         setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    /* 💘 Heart Burst */
+    function heartBurst() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "💘";
+        heart.style.position = "absolute";
+        heart.style.left = (window.innerWidth / 2) + "px";
+        heart.style.top = (window.innerHeight / 2) + "px";
+        heart.style.fontSize = "25px";
+        heart.style.transition = "all 2s ease";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.top = Math.random() * window.innerHeight + "px";
+          heart.style.opacity = "0";
+        }, 100);
+
+        setTimeout(() => heart.remove(), 2000);
       }
     }
 
     /* YES Click */
     yesBtn.addEventListener("click", () => {
-
-      // Hide question + buttons
       questionText.style.display = "none";
       btnRow.style.display = "none";
 
-      // Show message + roses
       message.style.display = "block";
+      message.innerHTML = `
+        YaYYY ${girlName} 💘!! <br>
+        Thank you for being my Valentine 😍 <br>
+        I Love You ❤️
+      `;
+
       roseBox.style.display = "block";
 
-      // Start music
+      setTimeout(() => {
+        message.style.opacity = "1";
+        roseBox.style.opacity = "1";
+      }, 200);
+
       musicBox.style.display = "block";
       bgMusic.play();
 
-      // Confetti blast
+      heartBurst();
       launchConfetti();
 
-      // Surprise after 3change to 10 sec
+      /* Surprise after 10 sec */
       setTimeout(() => {
         surpriseScreen.style.display = "flex";
-      setTimeout(() => {
-        surpriseScreen.style.opacity = "1";
+        setTimeout(() => {
+          surpriseScreen.style.opacity = "1";
         }, 200);
       }, 10000);
     });
 
-    /* Floating Hearts */
+    /* Floating Hearts Background */
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       heart.innerHTML = "💖";
-
       heart.style.left = Math.random() * window.innerWidth + "px";
       heart.style.top = window.innerHeight + "px";
       heart.style.fontSize = Math.random() * 25 + 15 + "px";
-
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 6000);
     }
 
